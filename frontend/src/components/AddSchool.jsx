@@ -26,13 +26,9 @@ export default function AddSchool() {
     });
 
     try {
-      await axios.post(
-        `${BASE_URL}/api/schools/add`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      await axios.post(`${BASE_URL}/api/schools/add`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       toast.success("School added successfully");
       reset();
     } catch (err) {
@@ -43,114 +39,160 @@ export default function AddSchool() {
   };
 
   return (
-    <div className="container mx-auto px-6 py-2 sm:py-4 max-w-lg">
-      <h1 className="text-2xl sm:text-[1.7rem] font-bold mb-4 text-center font-(family-name:--font-roboto)">Add School</h1>
+    <div className="container mx-auto px-4 max-w-2xl">
+      <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-100">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800 font-(family-name:--font-roboto)">
+          Add New School
+        </h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-1">
-        <div>
-          <label className="block mb-1 sm:text-lg">School Name</label>
-          <input
-            {...register("name", { required: "School name is required" })}
-            className="w-full p-1 border rounded"
-          />
-          {errors.name && (
-            <p className="text-red-500 text-[12px]">{errors.name.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block mb-1 sm:text-lg">Address</label>
-          <textarea
-            {...register("address", { required: "Address is required" })}
-            className="w-full p-1 border rounded"
-          />
-          {errors.address && (
-            <p className="text-red-500 text-[12px]">{errors.address.message}</p>
-          )}
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div>
-            <label className="block mb-1 sm:text-lg">City</label>
+            <label className="block mb-2 font-medium text-gray-700 text-sm sm:text-base">
+              School Name
+            </label>
             <input
-              {...register("city", { required: "City is required" })}
-              className="w-full p-1 border rounded"
+              {...register("name", { required: "School name is required" })}
+              placeholder="Enter the school name"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base"
             />
-            {errors.city && (
-              <p className="text-red-500 text-[12px]">{errors.city.message}</p>
+            {errors.name && (
+              <p className="text-red-500 text-xs sm:text-sm mt-1">
+                {errors.name.message}
+              </p>
             )}
+          </div>
+          <div>
+            <label className="block mb-2 font-medium text-gray-700 text-sm sm:text-base">
+              Address
+            </label>
+            <textarea
+              {...register("address", { required: "Address is required" })}
+              rows="3"
+              placeholder="Enter full address"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm sm:text-base"
+            />
+            {errors.address && (
+              <p className="text-red-500 text-xs sm:text-sm mt-1">
+                {errors.address.message}
+              </p>
+            )}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+            <div>
+              <label className="block mb-2 font-medium text-gray-700 text-sm sm:text-base">
+                City
+              </label>
+              <input
+                {...register("city", { required: "City is required" })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base"
+              />
+              {errors.city && (
+                <p className="text-red-500 text-xs sm:text-sm mt-1">
+                  {errors.city.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block mb-2 font-medium text-gray-700 text-sm sm:text-base">
+                State
+              </label>
+              <input
+                {...register("state", { required: "State is required" })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base"
+              />
+              {errors.state && (
+                <p className="text-red-500 text-xs sm:text-sm mt-1">
+                  {errors.state.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+            <div>
+              <label className="block mb-2 font-medium text-gray-700 text-sm sm:text-base">
+                Contact Number
+              </label>
+              <input
+                {...register("contact", {
+                  required: "Contact is required",
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: "Please enter a valid 10-digit number",
+                  },
+                })}
+                placeholder="10-digit mobile number"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base"
+              />
+              {errors.contact && (
+                <p className="text-red-500 text-xs sm:text-sm mt-1">
+                  {errors.contact.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label className="block mb-2 font-medium text-gray-700 text-sm sm:text-base">
+                Email
+              </label>
+              <input
+                type="email"
+                {...register("email_id", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email address",
+                  },
+                })}
+                placeholder="school@example.com"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all text-sm sm:text-base"
+              />
+              {errors.email_id && (
+                <p className="text-red-500 text-xs sm:text-sm mt-1">
+                  {errors.email_id.message}
+                </p>
+              )}
+            </div>
           </div>
 
           <div>
-            <label className="block mb-1 sm:text-lg">State</label>
+            <label className="block mb-2 font-medium text-gray-700 text-sm sm:text-base">
+              School Image
+            </label>
             <input
-              {...register("state", { required: "State is required" })}
-              className="w-full p-1 border rounded"
+              type="file"
+              accept="image/*"
+              {...register("image", { required: "Image is required" })}
+              className="w-full text-xs sm:text-sm text-gray-500
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-blue-50 file:text-blue-700
+                hover:file:bg-blue-100 cursor-pointer"
             />
-            {errors.state && (
-              <p className="text-red-500 text-[12px]">{errors.state.message}</p>
+            {errors.image && (
+              <p className="text-red-500 text-xs sm:text-sm mt-1">
+                {errors.image.message}
+              </p>
             )}
           </div>
-        </div>
 
-        <div>
-          <label className="block mb-1 sm:text-lg">Contact Number</label>
-          <input
-            {...register("contact", {
-              required: "Contact is required",
-              pattern: {
-                value: /^[0-9]{10}$/,
-                message: "Please enter a valid 10-digit number",
-              },
-            })}
-            className="w-full p-1 border rounded"
-          />
-          {errors.contact && (
-            <p className="text-red-500 text-[12px]">{errors.contact.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block mb-1 sm:text-lg">Email</label>
-          <input
-            type="email"
-            {...register("email_id", {
-              required: "Email is required",
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "Invalid email address",
-              },
-            })}
-            className="w-full p-1 border rounded"
-          />
-          {errors.email_id && (
-            <p className="text-red-500 text-[12px]">
-              {errors.email_id.message}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <label className="block mb-1 sm:text-lg">School Image</label>
-          <input
-            type="file"
-            accept="image/*"
-            {...register("image", { required: "Image is required" })}
-            className="w-full p-1 border rounded"
-          />
-          {errors.image && (
-            <p className="text-red-500 text-[12px]">{errors.image.message}</p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 cursor-pointer mt-4 text-white py-[6px] px-4 rounded hover:bg-blue-700"
-        >
-          {loading ? "Submitting..." : "Add School"}
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 mt-6 text-white font-semibold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 shadow-md disabled:opacity-70 disabled:cursor-not-allowed text-sm sm:text-base"
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                Processing...
+              </span>
+            ) : (
+              "Add School"
+            )}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
