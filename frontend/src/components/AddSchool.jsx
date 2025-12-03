@@ -168,8 +168,8 @@ export default function AddSchool() {
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold
-                file:bg-blue-50 file:text-blue-700
-                hover:file:bg-blue-100 cursor-pointer"
+              file:bg-blue-50 file:text-blue-700
+              hover:file:bg-blue-100 cursor-pointer  "
             />
             {errors.image && (
               <p className="text-red-500 text-xs sm:text-sm mt-1">
