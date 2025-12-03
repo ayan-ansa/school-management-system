@@ -10,7 +10,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://school-management-system0.vercel.app/",
+      "https://school-management-system0.vercel.app",
     ],
   })
 );
