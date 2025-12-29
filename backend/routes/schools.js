@@ -2,11 +2,11 @@ import fs from "fs";
 import express from "express";
 import multer from "multer";
 import path from "path";
-import { addSchools, getSchools } from "../controllers/schoolController.js";
+import { addSchool, getSchools } from "../controllers/schoolController.js";
 
 const router = express.Router();
 
-const uploadDir = path.join(process.cwd(), "schoolImages");
+export const uploadDir = path.join(process.cwd(), "schoolImages");
 
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
@@ -25,6 +25,6 @@ const upload = multer({ storage });
 
 router.get("/", getSchools);
 
-router.post("/add", upload.single("image"), addSchools);
+router.post("/add", upload.single("image"), addSchool);
 
 export default router;

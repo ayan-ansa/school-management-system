@@ -32,7 +32,6 @@ export default function AddSchool() {
       toast.success("School added successfully");
       reset();
     } catch (err) {
-      console.log(err);
       toast.error("Error adding school");
     }
     setLoading(false);

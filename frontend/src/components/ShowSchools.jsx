@@ -55,7 +55,6 @@ export default function ShowSchools() {
           Schools Directory
         </h1>
 
-        
         <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
           <div className="w-full sm:w-64">
             <input
@@ -91,14 +90,14 @@ export default function ShowSchools() {
           >
             <div className="overflow-hidden h-40 sm:h-48 cursor-pointer">
               <img
-                src={`${BASE_URL}/schoolImages/${image}`}
+                src={image}
                 alt={name}
                 className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
               />
             </div>
 
             <div className="px-3 py-4 sm:p-5 flex-grow flex flex-col font-(family-name:--font-roboto)">
-            <p className="text-sm text-[#13afc7]">{city}</p>
+              <p className="text-sm text-[#13afc7]">{city}</p>
               <h4 className="font-bold text-base sm:text-lg text-gray-800 mb-2 leading-tight">
                 {name}
               </h4>

@@ -1,4 +1,7 @@
 import db from "../config/db.js";
+import path from "path";
+import { uploadDir } from "../routes/schools.js";
+import { uploadImage } from "../utils/service.js";
 
 export const getSchools = async (req, res) => {
   try {
@@ -11,14 +14,16 @@ export const getSchools = async (req, res) => {
   }
 };
 
-export const addSchools = async (req, res) => {
+export const addSchool = async (req, res) => {
   const { filename } = req.file;
   try {
     const { name, address, city, state, contact, email_id } = req.body;
-
+    
+    const { secure_url } = await uploadImage(path.join(uploadDir, filename));
+    
     const [result] = await db.query(
       "INSERT INTO schools (name, address, city, state, contact, image, email_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [name, address, city, state, contact, filename, email_id]
+      [name, address, city, state, contact, secure_url, email_id]
     );
 
     res.status(201).json({
@@ -28,4 +33,4 @@ export const addSchools = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-};
+}
